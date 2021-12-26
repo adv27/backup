@@ -12,7 +12,7 @@ def main():
         see_more_item = browser.find_element_by_id("m_more_item")
         new_href = see_more_item.find_element_by_tag_name("a").get_attribute("href")
         browser.get(new_href)
-        count = count + 1
+        count += 1
         time.sleep(1)
     print(count)
     

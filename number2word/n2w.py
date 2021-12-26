@@ -6,9 +6,9 @@ def num2words(number):
     number = int(number)
     words = ""
     for key in my_map.keys():
-        if((number//int(key))>0):
+        if ((number//int(key))>0):
             words += num2words(number//int(key)) + " " + my_map[key]
-            number = number % int(key)
+            number %= int(key)
     if(number<10 and number !=0):
         words += " " + numberMap[number]
     return words
@@ -16,21 +16,21 @@ def num2words(number):
 def Number2Word(number):
     number = int(number)
     words = ""
-    if( (number//1000000000) > 0):
+    if ( (number//1000000000) > 0):
         words += Number2Word(number//1000000000) + " ty"
-        number = number % 1000000000
-    if( (number //1000000) >0):
+        number %= 1000000000
+    if ( (number //1000000) >0):
         words += Number2Word(number//1000000) + " trieu"
-        number = number % 1000000
-    if( (number//1000) > 0):
+        number %= 1000000
+    if ( (number//1000) > 0):
         words += Number2Word(number//1000) + " ngan"
-        number = number %1000
-    if((number//100)>0):
+        number %= 1000
+    if ((number//100)>0):
         words += Number2Word(number//100) +" tram"
-        number = number%100
-    if((number//10)>0):
+        number %= 100
+    if ((number//10)>0):
         words += Number2Word(number//10) + " muoi"
-        number = number%10
+        number %= 10
     if(number<10 and number !=0):
         words += " " + numberMap[number]
     return words

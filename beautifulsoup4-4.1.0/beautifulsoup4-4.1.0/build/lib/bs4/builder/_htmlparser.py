@@ -56,11 +56,7 @@ class BeautifulSoupHTMLParser(HTMLParser):
     def handle_charref(self, name):
         # XXX workaround for a bug in HTMLParser. Remove this once
         # it's fixed.
-        if name.startswith('x'):
-            real_name = int(name.lstrip('x'), 16)
-        else:
-            real_name = int(name)
-
+        real_name = int(name.lstrip('x'), 16) if name.startswith('x') else int(name)
         try:
             data = chr(real_name)
         except (ValueError, OverflowError) as e:
@@ -70,10 +66,7 @@ class BeautifulSoupHTMLParser(HTMLParser):
 
     def handle_entityref(self, name):
         character = EntitySubstitution.HTML_ENTITY_TO_CHARACTER.get(name)
-        if character is not None:
-            data = character
-        else:
-            data = "&%s;" % name
+        data = character if character is not None else "&%s;" % name
         self.handle_data(data)
 
     def handle_comment(self, data):

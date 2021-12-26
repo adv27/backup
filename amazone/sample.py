@@ -23,10 +23,8 @@ def get_page_content(url):
 def main():
 	file_name = r'C:\Users\vdanh\Desktop\py\amazone\list.txt'
 	_list = get_list(file_name)
-	count = 0
-	for url in _list:
+	for count, url in enumerate(_list, start=1):
 		content, title = get_page_content(url)
-		count = count + 1
 		file_name = r'C:\Users\vdanh\Desktop\py\amazone'
 		file_name += '\\'+ str(count) + '.html'
 		save_content_to_file(file_name,content)

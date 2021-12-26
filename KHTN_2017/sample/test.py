@@ -11,27 +11,24 @@ def getListID(file_name):
     with io.open(file_name,'r') as ins:
         for line in ins:
             data += line
-    list_id = data.split(',')
-    return list_id
+    return data.split(',')
 
 def dataToHTMLTable(my_list, subjectName):
     try:
-        if(len(my_list)!=0):
+        if (len(my_list)!=0):
             #sort
             if subject_name != 'All':
                 key_sort = subject_name
-                if subject_name == 'Toán' or subject_name == 'Tin':
+                if key_sort in ['Toán', 'Tin']:
                     key_sort = 'Toán 2'
-                elif subject_name == 'Hóa':
+                elif key_sort == 'Hóa':
                     key_sort = 'Hoá'
                 my_list = sorted(my_list, key = lambda k: k[key_sort],reverse = True)
-##            else:
-                #my_list = list(my_list.get(x) for x in my_list.keys())
             #
             header = ['Stt']
             header += my_list[0].keys()
             html = '<table align="center" border="2" style="BORDER-COLLAPSE: collapse" bordercolor="#CCCCCC" cellpadding="2" cellspacing="0" width="100%"><tr><th>' + '</th><th>'.join(header) + '</th></tr>'
-            for i in range(0,len(my_list)):
+            for i in range(len(my_list)):
                 data = my_list[i]
                 html += '<tr>'
                 html +='<td align="center">' + str(i+1) + '</td>'
@@ -80,7 +77,7 @@ def main():
     list_subjects = ['Toán','Tin', 'Lý', 'Hoá', 'Sinh']
 ##    list_all_passed = dict()
 ##    list_all_passed = {'Toán':list(),'Tin':list(), 'Lý':list(), 'Hóa':list(), 'Sinh':list()}
-    list_all_passed = list()
+    list_all_passed = []
     list_id = getListID('listId.txt')
     print(list_id[320])
     print("Loaded, size = " +str(len(list_id)))

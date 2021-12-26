@@ -13,12 +13,11 @@ def main():
         data = json.loads(data)
         subject_name = {"Toán": 0, "Lý" : 0, "Hoá": 0 ,"Sinh": 0}
         count = 0
-        for i in range(0,len(data)):
+        for i in range(len(data)):
                 student = data[i]
-                if "Họ Và Tên" in student:
-                        if student["Họ Và Tên"] is not "":
-                                if student["Họ Và Tên"] == "Nguyễn Thúy Anh":
-                                        print(student)
+                if ("Họ Và Tên" in student and student["Họ Và Tên"] is not ""
+                    and student["Họ Và Tên"] == "Nguyễn Thúy Anh"):
+                        print(student)
 ##                if "Kết Luận" in student:
 ##                        if student["Kết Luận"] is not "":
 ##                                if "GT" in student:

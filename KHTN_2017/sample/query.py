@@ -6,7 +6,7 @@ def dataToHTMLTable(my_list):
     header = ['Stt']
     header += my_list[0].keys()
     html = '<table align="center" border="2" style="BORDER-COLLAPSE: collapse" bordercolor="#CCCCCC" cellpadding="2" cellspacing="0" width="100%"><tr><th>' + '</th><th>'.join(header) + '</th></tr>'
-    for i in range(0,len(my_list)):
+    for i in range(len(my_list)):
         data = my_list[i]
         html += '<tr>'
         html +='<td align="center">' + str(i+1) + '</td>'

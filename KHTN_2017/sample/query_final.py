@@ -12,18 +12,17 @@ def getListID(file_name):
     with io.open(file_name,'r') as ins:
         for line in ins:
             data += line
-    list_id = data.split(',')
-    return list_id
+    return data.split(',')
 
 def dataToHTMLTable(my_list, subjectName):
     try:
-        if(len(my_list)!=0):
+        if (len(my_list)!=0):
             #sort
-            if subject_name != 'All' and subject_name != 'Multi':
+            if subject_name not in ['All', 'Multi']:
                 key_sort = subject_name
-                if subject_name == 'Toán' or subject_name == 'Tin':
+                if key_sort in ['Toán', 'Tin']:
                     key_sort = 'Toán 2'
-                elif subject_name == 'Hóa':
+                elif key_sort == 'Hóa':
                     key_sort = 'Hoá'
                 my_list = sorted(my_list, key = lambda k: float(k[key_sort]),reverse = True)
             elif subject_name == 'All':
@@ -35,7 +34,7 @@ def dataToHTMLTable(my_list, subjectName):
             header = ['Stt']
             header += my_list[0].keys()
             html = '<table align="center" border="2" style="BORDER-COLLAPSE: collapse" bordercolor="#CCCCCC" cellpadding="2" cellspacing="0" width="100%"><tr><th>' + '</th><th>'.join(header) + '</th></tr>'
-            for i in range(0,len(my_list)):
+            for i in range(len(my_list)):
                 data = my_list[i]
                 html += '<tr>'
                 html +='<td align="center">' + str(i+1) + '</td>'
@@ -73,7 +72,7 @@ def getData(_list,list_id,_from,_to):
                         for key in list_key:
                             _list[key.replace(' ','')].append(data)
     except Exception as ex:
-        print(str(ex))
+        print(ex)
         print(i)
         getData(_list,list_id,i,_to)
         
@@ -91,9 +90,9 @@ def main():
     with io.open("All_listResult.txt", "w", encoding="utf-8") as f:
                 f.write(json.dumps(list_all_passed))
     print("Saved ")
-    
-    for _key in list_all_passed.keys():
-        dataToHTMLTable(list_all_passed[_key],_key)
+
+    for _key, value in list_all_passed.items():
+        dataToHTMLTable(value, _key)
     dataToHTMLTable(list_all_passed,'All')
 
 if __name__ ==  "__main__":

@@ -16,13 +16,13 @@ def get_file_data(file_name):
 
 def data_to_HTML_table(my_list, subject_name):
     try:
-        if(len(my_list)!=0):
+        if (len(my_list)!=0):
             #sort
-            if subject_name != 'All' and subject_name != 'Multi':
+            if subject_name not in ['All', 'Multi']:
                 key_sort = subject_name
-                if subject_name == 'Toán' or subject_name == 'Tin':
+                if key_sort in ['Toán', 'Tin']:
                     key_sort = 'Toán 2'
-                elif subject_name == 'Hóa':
+                elif key_sort == 'Hóa':
                     key_sort = 'Hoá'
                 my_list = sorted(my_list, key = lambda k: float(k[key_sort]),reverse = True)
             else:
@@ -35,7 +35,7 @@ def data_to_HTML_table(my_list, subject_name):
             header = ['Stt']
             header += my_list[0].keys()
             html = '<table align="center" border="2" style="BORDER-COLLAPSE: collapse" bordercolor="#CCCCCC" cellpadding="2" cellspacing="0" width="100%"><tr><th>' + '</th><th>'.join(header) + '</th></tr>'
-            for i in range(0,len(my_list)):
+            for i in range(len(my_list)):
                 data = my_list[i]
                 html += '<tr>'
                 html +='<td align="center">' + str(i+1) + '</td>'
@@ -48,7 +48,7 @@ def data_to_HTML_table(my_list, subject_name):
                 f.write(html)
             print("Saved " +  file_name)
     except Exception as e:
-        print(str(e))
+        print(e)
 
 
 def main():
@@ -61,7 +61,7 @@ def main():
     header = ['Stt']
     header += list_all_passed[0].keys()
     html = '<table align="center" border="2" style="BORDER-COLLAPSE: collapse" bordercolor="#CCCCCC" cellpadding="2" cellspacing="0" width="100%"><tr><th>' + '</th><th>'.join(header) + '</th></tr>'
-    for i in range(0,len(list_all_passed)):
+    for i in range(len(list_all_passed)):
         data = list_all_passed[i]
         html += '<tr>'
         html +='<td align="center">' + str(i+1) + '</td>'

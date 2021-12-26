@@ -10,8 +10,7 @@ def getListID(file_name):
     with io.open(file_name,'r') as ins:
         for line in ins:
             data += line
-    list_id = data.replace(' ','').split(',')
-    return list_id
+    return data.replace(' ','').split(',')
 
 def getData(list_stu, list_ids, from_,to_):
     try:
@@ -30,20 +29,14 @@ def getData(list_stu, list_ids, from_,to_):
                 data = dict(zip(headers, values));
                 list_stu.append(data)
                 #print(data)
-##                if(data.get('Kết Luận')is not ''):
-##                    list_key = (str(data.get('Kết Luận')).replace('Đỗ','')).replace('C. ','').split(',')
-##                    if(len(list_key)>1):
-##                        list_stu['Multi'].append(data)
-##                    for key in list_key:
-##                        list_stu[key.replace(' ','')].append(data)
     except Exception as ex:
-        print(str(ex))
+        print(ex)
         print(i)
         getData(list_stu,list_ids,i,to_)
 
 def main():
     #list_all_passed = {'Toán':list(),'Tin':list(), 'Lý':list(), 'Hóa':list(), 'Sinh':list(), 'Multi':list()}
-    list_all = list()
+    list_all = []
     ids = getListID("listId.txt")
     #getting data from server
     getData(list_all,ids,0,len(ids))

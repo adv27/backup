@@ -306,8 +306,7 @@ class UnicodeDammit:
         elif data[:4] == '\xff\xfe\x00\x00':
             encoding = 'utf-32le'
             data = data[4:]
-        newdata = str(data, encoding, errors)
-        return newdata
+        return str(data, encoding, errors)
 
     def _detectEncoding(self, xml_data, is_html=False):
         """Given a document, tries to detect its XML encoding."""
@@ -356,7 +355,6 @@ class UnicodeDammit:
                 xml_data = str(xml_data[3:], 'utf-8').encode('utf-8')
             else:
                 sniffed_xml_encoding = 'ascii'
-                pass
         except:
             xml_encoding_match = None
         xml_encoding_match = xml_encoding_re.match(xml_data)

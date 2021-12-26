@@ -102,7 +102,7 @@ class LXMLTreeBuilderForXML(TreeBuilder):
             # A new namespace mapping has come into play.
             if self.nsmaps is None:
                 self.nsmaps = []
-            inverted_nsmap = dict((value, key) for key, value in list(nsmap.items()))
+            inverted_nsmap = {value: key for key, value in list(nsmap.items())}
             self.nsmaps.append(inverted_nsmap)
             # Also treat the namespace mapping as a set of attributes on the
             # tag, so we can recreate it later.

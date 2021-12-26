@@ -15,7 +15,7 @@ def get_liked_pages(user_token = ""):
         #obj = graph.get_object(id = "me?fields=likes")
         obj = graph.get_object("100005064335645/likes?pretty=1&limit=100")
         #obj = obj["likes"]
-        liked_pages = list()
+        liked_pages = []
         request = str()
         while obj["paging"]["cursors"]["after"] is not "":
             liked_pages.extend(obj["data"])

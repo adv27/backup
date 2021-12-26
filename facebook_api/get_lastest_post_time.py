@@ -21,9 +21,7 @@ def split_list(alist, wanted_parts=1):
              for i in range(wanted_parts) ]
 
 def get_time_data(liked_pages, user_token, numbers = 1):
-    count = 0
-    for _list in split_list(liked_pages,numbers):
-        count += 1
+    for count, _list in enumerate(split_list(liked_pages,numbers), start=1):
         _thread.start_new_thread(get_latest_post_data,(_list,user_token,None,count))
 
 #this function return the json result of the request to url:
@@ -44,10 +42,9 @@ def get_latest_post_data(list_pages, user_token, start_id = None,count = 0):
                 url = r'https://graph.facebook.com/' + page_id + request_get_post + '&access_token='+ user_token
                 json_obj = my_request(url)
                 latest_created_time = ''
-                if 'data' in json_obj:
-                    if len(json_obj['data']) != 0:
-                        data = json_obj['data'][0]
-                        latest_created_time = data['created_time']               
+                if 'data' in json_obj and len(json_obj['data']) != 0:
+                    data = json_obj['data'][0]
+                    latest_created_time = data['created_time']
                 page['latest_post'] = latest_created_time
                 #geting category
                 url = r'https://graph.facebook.com/' + page_id + request_get_category + '&access_token='+ user_token
@@ -63,7 +60,7 @@ def get_latest_post_data(list_pages, user_token, start_id = None,count = 0):
         save_data_to_file(location,data = json.dumps(list_pages))
         print('saved ',location)
     except Exception as ex:
-        print(str(ex))
+        print(ex)
         get_latest_post_data(list_pages,user_token,page_id,count)
 
 def main():

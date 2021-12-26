@@ -228,22 +228,21 @@ class BeautifulSoup(Tag):
         self.currentTag = self.tagStack[-1]
 
     def endData(self, containerClass=NavigableString):
-        if self.currentData:
-            currentData = ''.join(self.currentData)
-            if (currentData.translate(self.STRIP_ASCII_SPACES) == '' and
-                not set([tag.name for tag in self.tagStack]).intersection(
-                    self.builder.preserve_whitespace_tags)):
-                if '\n' in currentData:
-                    currentData = '\n'
-                else:
-                    currentData = ' '
-            self.currentData = []
-            if self.parse_only and len(self.tagStack) <= 1 and \
-                   (not self.parse_only.text or \
-                    not self.parse_only.search(currentData)):
-                return
-            o = containerClass(currentData)
-            self.object_was_parsed(o)
+        if not self.currentData:
+            return
+
+        currentData = ''.join(self.currentData)
+        if currentData.translate(self.STRIP_ASCII_SPACES) == '' and not {
+            tag.name for tag in self.tagStack
+        }.intersection(self.builder.preserve_whitespace_tags):
+            currentData = '\n' if '\n' in currentData else ' '
+        self.currentData = []
+        if self.parse_only and len(self.tagStack) <= 1 and \
+               (not self.parse_only.text or \
+                not self.parse_only.search(currentData)):
+            return
+        o = containerClass(currentData)
+        self.object_was_parsed(o)
 
     def object_was_parsed(self, o):
         """Add an object to the parse tree."""
@@ -271,9 +270,9 @@ class BeautifulSoup(Tag):
                 numPops = len(self.tagStack) - i
                 break
         if not inclusivePop:
-            numPops = numPops - 1
+            numPops -= 1
 
-        for i in range(0, numPops):
+        for _ in range(numPops):
             mostRecentTag = self.popTag()
         return mostRecentTag
 
@@ -326,10 +325,7 @@ class BeautifulSoup(Tag):
             prefix = '<?xml version="1.0"%s?>\n' % encoding_part
         else:
             prefix = ''
-        if not pretty_print:
-            indent_level = None
-        else:
-            indent_level = 0
+        indent_level = None if not pretty_print else 0
         return prefix + super(BeautifulSoup, self).decode(
             indent_level, eventual_encoding, formatter)
 

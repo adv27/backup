@@ -10,12 +10,13 @@ def saveToFile(data, file_name):
         f.write(data)
 
 def getID(soup):
-    ids = list()
     tds = soup.find_all('td')
-    for td in tds:
-        if td.has_attr('width'):
-            if td.attrs['width'] == '10%':
-                ids.append(td.get_text())
+    ids = [
+        td.get_text()
+        for td in tds
+        if td.has_attr('width') and td.attrs['width'] == '10%'
+    ]
+
     saveToFile(','.join(ids),"listId.txt")
 
 def getData():

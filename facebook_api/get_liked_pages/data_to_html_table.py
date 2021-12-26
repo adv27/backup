@@ -10,11 +10,11 @@ def get_data_from_file(file_name = None):
     return data
 
 def to_html_table(list_pages):
-    if(len(list_pages)!=0):
+    if (len(list_pages)!=0):
         header = ['Stt']
         header += list_pages[0].keys()
         html = '<table align="center" border="2" style="BORDER-COLLAPSE: collapse" bordercolor="#CCCCCC" cellpadding="2" cellspacing="0" width="100%"><tr><th>' + '</th><th>'.join(header) + '</th></tr>'
-        for i in range(0,len(list_pages)):
+        for i in range(len(list_pages)):
             data = list_pages[i]
             html += '<tr>'
             html +='<td align="center">' + str(i+1) + '</td>'

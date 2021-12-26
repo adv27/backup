@@ -20,11 +20,11 @@ def decode_key(webkey):
 	out = ""
 	for k in webkey:
 		if k == '-':
-			out = out + "-"
+			out += "-"
 		elif k not in key:
-			out = out + k
+			out += k
 		else:
-			out = out + keymap[k]
+			out += keymap[k]
 	return out
 
 def get_page(url):
@@ -36,8 +36,7 @@ def search(term):
 	res = get_page(searchurl)
 	m = re.search('.a href=\"(.*)\" class=\"musictitle\"', res)
 	if m is not None:
-		songurl = m.group(1)
-		return songurl
+		return m.group(1)
 	return None
 
 def get_file_name(part3):

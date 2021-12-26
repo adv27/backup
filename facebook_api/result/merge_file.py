@@ -3,7 +3,7 @@ import json
 
 def main():
 	data = []
-	for i in range (0,15):
+	for i in range(15):
 		file_name = 'my_new_list_pages_with_time_'+str(i+1)+ '.txt'
 		file_data = str()
 		with io.open(file_name,'r',encoding = 'utf-8') as f:

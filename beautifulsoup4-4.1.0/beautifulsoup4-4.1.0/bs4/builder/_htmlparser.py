@@ -70,10 +70,7 @@ class BeautifulSoupHTMLParser(HTMLParser):
 
     def handle_entityref(self, name):
         character = EntitySubstitution.HTML_ENTITY_TO_CHARACTER.get(name)
-        if character is not None:
-            data = character
-        else:
-            data = "&%s;" % name
+        data = character if character is not None else "&%s;" % name
         self.handle_data(data)
 
     def handle_comment(self, data):
